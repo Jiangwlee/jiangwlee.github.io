@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Welcome to my blog!">
 <meta property="og:description" content="好多年前就尝试过Scrapy。但是那个时候编程经验尚浅，对于python和web的了解都非常粗浅，所以对于Scrapy的兴趣在几次很小的挫折后便失去了动力。如今故态萌发，于是重新研究，经过几天的折腾，终于对Scrapy有了一个初步印象。Scrapy的确是一个优秀的爬虫框架。有的人可能会想，写一个简单的爬虫为什么需要Scrapy，用urllib和beautifulsoup不也可以玩得很好吗？是的，u">
 <meta property="og:image" content="https://doc.scrapy.org/en/latest/_images/scrapy_architecture_02.png">
-<meta property="og:updated_time" content="2016-12-30T08:17:20.055Z">
+<meta property="og:updated_time" content="2016-12-30T08:19:50.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy小记">
 <meta name="twitter:description" content="好多年前就尝试过Scrapy。但是那个时候编程经验尚浅，对于python和web的了解都非常粗浅，所以对于Scrapy的兴趣在几次很小的挫折后便失去了动力。如今故态萌发，于是重新研究，经过几天的折腾，终于对Scrapy有了一个初步印象。Scrapy的确是一个优秀的爬虫框架。有的人可能会想，写一个简单的爬虫为什么需要Scrapy，用urllib和beautifulsoup不也可以玩得很好吗？是的，u">
@@ -186,7 +186,7 @@
 </ol>
 <p>关于怎么写一个简单的Crawler，Scrapy的官方文档有很详细的介绍，网上也有诸多例子，这里就不赘述了。一旦理解了上面这张图，写Crawler便成为一件简单轻松的事情。</p>
 <h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>理想很丰满，现实很骨感。书上不会告诉你全部的真相！</p>
-<p>我一开始就碰壁了。用Scrapy下载的网页和我从浏览器中看到的完全不同。我在Scrapy Shell中，看到的是一堆Javascript代码，而在浏览器中则是丰富的网页。Google了才知道Scrapy只是一个框架，不具备网页渲染的能力。因此，对于需要进行客户端计算的动态网页，只能寻求其他工具的帮助。经过对比，我选择了Splash。Splash是一个很高效的轻量级浏览器。它安装方便，直接在docker中运行，而且还提供了许多的HTTP<br>API来获取不同类型的渲染结果。在Github上有一个开源项目，叫做Scrapy-Splash，提供了一套Middleware将Scrapy和Splash胶合在一起，用起来非常方便。</p>
+<p>我一开始就碰壁了。用Scrapy下载的网页和我从浏览器中看到的完全不同。我在Scrapy Shell中，看到的是一堆Javascript代码，而在浏览器中则是丰富的网页。Google了才知道Scrapy只是一个框架，不具备网页渲染的能力。因此，对于需要进行客户端计算的动态网页，只能寻求其他工具的帮助。经过对比，我选择了Splash。Splash是一个很高效的轻量级浏览器。它安装方便，直接在docker中运行，而且还提供了许多的HTTP API来获取不同类型的渲染结果。在Github上有一个开源项目，叫做Scrapy-Splash，提供了一套Middleware将Scrapy和Splash胶合在一起，用起来非常方便。</p>
 <p>通过Splash终于解决了动态网页的问题。接下来是页面爬取和图片保存。最后结果一看，通过Scrapy的ImagesPipeline保存的图片全部都变成了jpg格式。原来ImagesPipeline会自动将所有图片文件都保存成.jpg格式。又是辛苦的Google，并没有太好的办法，最终是在Scrapy的github里看到有好心人回复，建议通过继承ImagesPipeline并重写其中的一些方法来保存gif文件。好在ImagesPipeline的代码比较简单，啃了半天后我重写了其中的一些方法，顺便将不同帖子中的图片放在不同的目录下。</p>
 <p>具体的代码在我的github上：<a href="https://github.com/Jiangwlee/Spiders" target="_blank" rel="external">https://github.com/Jiangwlee/Spiders</a></p>
 <h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>2016年马上就要过去了，这一年变化很多，还来不及总结，希望2017年能有更多的收获吧！</p>
